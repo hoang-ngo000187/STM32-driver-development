@@ -1,0 +1,10 @@
+22:51:51 **** Build of configuration Debug for project 006Volatile_Keyword ****
+make -j8 all 
+arm-none-eabi-size   006Volatile_Keyword.elf 
+   text	   data	    bss	    dec	    hex	filename
+    680	      8	   1568	   2256	    8d0	006Volatile_Keyword.elf
+Finished building: default.size.stdout
+ 
+
+22:51:51 Build Finished. 0 errors, 0 warnings. (took 418ms)
+
