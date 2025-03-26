@@ -182,6 +182,21 @@ typedef struct
 	__vo uint32_t CMPCR;		// Offset: 0x20
 } SYSCFG_RegDef_t;
 
+/*
+ * PERIPHERAL REGISTER DEFINITIONS STRUCTURE FOR SPI
+ */
+typedef struct
+{
+	__vo uint32_t	CR1;		/* SPI control register 1							;	Address offset: 0x00 */
+	__vo uint32_t	CR2;		/* SPI control register 2							;	Address offset: 0x04 */
+	__vo uint32_t	SR;			/* SPI status register								;	Address offset: 0x08 */
+	__vo uint32_t	DR;			/* SPI status register								;	Address offset: 0x0C */
+	__vo uint32_t	CRCPR;		/* SPI CRC polynomial register						;	Address offset: 0x10 */
+	__vo uint32_t	RXCRCR;		/* SPI RX CRC register								;	Address offset: 0x14 */
+	__vo uint32_t	TXCRCR;		/* SPI TX CRC register								;	Address offset: 0x18 */
+	__vo uint32_t	I2SCFGR;	/* SPI_I2S configuration register					;	Address offset: 0x00 */
+	__vo uint32_t	I2SPR;		/* SPI_I 2 S prescaler register						;	Address offset: 0x00 */
+}SPI_RegDef_t;
 
 
 /*
@@ -196,6 +211,10 @@ typedef struct
 #define GPIOG	((GPIO_RegDef_t*) GPIOG_BASEADDR)
 #define GPIOH	((GPIO_RegDef_t*) GPIOH_BASEADDR)
 #define GPIOI	((GPIO_RegDef_t*) GPIOI_BASEADDR)
+
+#define SPI1	((SPI_RegDef_t*) SPI1_BASEADDR)
+#define SPI2	((SPI_RegDef_t*) SPI2_BASEADDR)
+#define SPI3	((SPI_RegDef_t*) SPI3_BASEADDR)
 
 #define RCC		((RCC_RegDef_t*) RCC_BASEADDR)
 
@@ -225,13 +244,15 @@ typedef struct
  * Clock Enable Macros for SPIx peripherals
  */
 #define SPI1_PCLK_EN()	(RCC->APB2ENR |= (0x0001 << 12))
+#define SPI2_PCLK_EN()	(RCC->APB1ENR |= (0x0001 << 14))
+#define SPI3_PCLK_EN()	(RCC->APB1ENR |= (0x0001 << 15))
 
 /*
  * Clock Enable Macros for USARTx peripherals
  */
 
 /*
- * Clock Enable Macros for SYSCFG peripherals
+ * Clock Enable Macros for DSYSCFG peripherals
  */
 #define SYSCFG_PCLK_EN()	(RCC->APB2ENR |= (0x0001 << 14))
 
@@ -248,6 +269,13 @@ typedef struct
 #define GPIOG_PCLK_DI()	(RCC->AHB1ENR &= ~(0x0001 << 6))
 #define GPIOH_PCLK_DI()	(RCC->AHB1ENR &= ~(0x0001 << 7))
 #define GPIOI_PCLK_DI()	(RCC->AHB1ENR &= ~(0x0001 << 8))
+
+/*
+ * Clock Disable Macros for SPIx peripherals
+ */
+#define SPI1_PCLK_DI()	(RCC->APB2ENR &= ~(0x0001 << 12))
+#define SPI2_PCLK_DI()	(RCC->APB1ENR &= ~(0x0001 << 14))
+#define SPI3_PCLK_DI()	(RCC->APB1ENR &= ~(0x0001 << 15))
 
 
 
@@ -305,5 +333,5 @@ typedef struct
 #define GPIO_PIN_RESET	RESET
 
 #include "stm32f407xx_gpio_driver.h"
-
+#include "stm32f407xx_spi_driver.h"
 #endif /* INC_STM32F407XX_H_ */
